@@ -1,0 +1,64 @@
+body {
+    background: url(../images/body-bg.png) repeat scroll 0 0 transparent;
+    color:#6C829B;
+    font-family: Arial,sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+
+
+
+div#info {
+   width: 640px;
+   margin:0 auto;
+}
+
+div#framecounter {
+   position: absolute; 
+   font-size: 10px;
+}
+
+div.frame-counter-wrapper {
+   color:#FFFFFF;
+   position: absolute;
+   font-size: 10px;
+   font-family: Courier New;
+}
+
+div.footer {
+   padding: 10px 0;
+   width: 100%;
+   position: fixed;
+   bottom: 0px;
+   left:0px;
+   text-align:center;
+   background: url(../images/default_header.png) repeat scroll 0 0 transparent;
+   text-shadow: 1px 1px 0 #000000;
+}
+
+div.footer hr {
+   height: 1px;
+   width: 75%;
+   color: #B8BABB;
+}
+
+div.controls, div.logo-wrap {
+   width:100%;
+   margin-bottom: 20px;
+}
+
+div.controls div.controls-text {
+   margin:0 auto;
+   width:640px;
+   font-size: 10px;
+   font-style: italic;
+}
+
+
+div.logo-wrap div.logo {
+   background: url(../images/logo.png);
+   width:275px;
+   height:35px;
+   margin:0 auto;
+}
