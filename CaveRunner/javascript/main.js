@@ -64,14 +64,6 @@ var g_resources= [{
     name: "title",
     type: "image",
     src:  "images/title1.png"
-},{
-    name: "intro_bg",
-    type: "image",
-    src:  "images/intro_bg.png"
-},{
-    name: "logo",
-    type: "image",
-    src:  "images/logo.png"
 },
 // game font
 {
@@ -85,12 +77,6 @@ var g_resources= [{
 },
 {
     name: "DST-Away",
-    type: "audio",
-    src: "sound/",
-    channel: 1
-},
-{
-    name: "DST-AngryMod",
     type: "audio",
     src: "sound/",
     channel: 1
@@ -162,16 +148,14 @@ var jsApp	=
 	
 		callback when everything is loaded
 		
-		---	*/
+		---										*/
 	loaded: function ()
 	{
-            me.state.set( me.state.INTRO, new IntroScreen() );
-
             // set the Title Screen Object
             me.state.set(me.state.MENU, new TitleScreen());
 
 	    // set the "Play/Ingame" Screen Object
-            me.state.set(me.state.PLAY, new PlayScreen(true, false));
+            me.state.set(me.state.PLAY, new PlayScreen());
 
             //GameEndScreen
             me.state.set(me.state.GAME_END, new GameEndScreen());
@@ -199,7 +183,7 @@ var jsApp	=
 		//me.state.change(me.state.PLAY);
 
 // display the menu title
-    me.state.change(me.state.INTRO);
+    me.state.change(me.state.MENU);
 	}
 
 }; // jsApp
@@ -232,16 +216,14 @@ var ScoreObject = me.HUD_Item.extend({
 /* the in game stuff*/
 var PlayScreen = me.ScreenObject.extend(
 {
-   init: function() {
-      this.level2AudioOn = false;      
-   },
 
    onResetEvent: function()
 	{	
         // stuff to reset on state change
         // load a level
-        me.levelDirector.loadLevel("area012");
+        me.levelDirector.loadLevel("area011");
 
+	  // play the audio track
         me.audio.playTrack("DST-Away");
 
         // add a default HUD to the game mngr
@@ -253,15 +235,6 @@ var PlayScreen = me.ScreenObject.extend(
         // make sure everyhting is in the right order
         me.game.sort();
 	},
-
-        update: function()
-        {
-	  // play the audio track
-           if(me.levelDirector.getCurrentLevelId() === 'area012' && !this.level2AudioOn) {
-              me.audio.playTrack("DST-AngryMod");
-              this.level2AudioOn = true;
-           }
-        },
 	
 	
 	/* ---
@@ -408,72 +381,6 @@ var GameEndScreen = me.ScreenObject.extend({
         me.input.unbindKey(me.input.KEY.ENTER);
     }
  
-});
-
-var IntroScreen = me.ScreenObject.extend({
-    init: function() {
-        this.parent( true );
-        this.counter = 0;
-    },
-
-    onResetEvent: function() {
-        if( ! this.title ) {
-            this.bg= me.loader.getImage("intro_bg");
-            this.logo = me.loader.getImage("logo");
-
-            /*this.glasses1 = me.loader.getImage("intro_glasses1"); // 249 229
-            this.glasses2 = me.loader.getImage("intro_glasses2"); // 249 229
-            this.glasses3 = me.loader.getImage("intro_glasses3"); // 249 229
-            this.glasses4 = me.loader.getImage("intro_glasses4"); // 249 229
-            this.text_mars = me.loader.getImage("intro_mars"); // 266 317
-            this.text_radmars1 = me.loader.getImage("intro_radmars1"); // 224 317
-            this.text_radmars2 = me.loader.getImage("intro_radmars2");*/
-        }
-
-        /*me.input.bindKey( me.input.KEY.ENTER, "enter", true );
-        me.audio.playTrack( "radmarslogo" );*/
-    },
-
-    update: function() {
-        
-        if ( this.counter < 350 )
-        {
-            this.counter++;
-        }
-
-        else{
-           me.state.change(me.state.MENU);
-        }
-        // have to force redraw :(
-        me.game.repaint();
-    },
-
-    draw: function(context) {
-        context.drawImage( this.bg, 0, 0 );
-        
-        if( this.counter < 130) context.drawImage( this.logo, 266, 317 );
-
-        /*if( this.counter < 130) context.drawImage( this.text_mars, 266, 317 );
-        else if( this.counter < 135) context.drawImage( this.text_radmars2, 224, 317 );
-        else if( this.counter < 140) context.drawImage( this.text_radmars1, 224, 317 );
-        else if( this.counter < 145) context.drawImage( this.text_radmars2, 224, 317 );
-        else if( this.counter < 150) context.drawImage( this.text_radmars1, 224, 317 );
-        else if( this.counter < 155) context.drawImage( this.text_radmars2, 224, 317 );
-        else if( this.counter < 160) context.drawImage( this.text_radmars1, 224, 317 );
-        else if( this.counter < 165) context.drawImage( this.text_radmars2, 224, 317 );
-        else context.drawImage( this.text_radmars1, 224, 317 );
-
-        if( this.counter < 100) context.drawImage( this.glasses1, 249, 229*(this.counter/100) );
-        else if( this.counter < 105) context.drawImage( this.glasses2, 249, 229 );
-        else if( this.counter < 110) context.drawImage( this.glasses3, 249, 229 );
-        else if( this.counter < 115) context.drawImage( this.glasses4, 249, 229 );
-        else context.drawImage( this.glasses1, 249, 229 );*/
-    },
-
-    onDestroyEvent: function() {
-        me.input.unbindKey(me.input.KEY.ENTER);
-        me.audio.stopTrack();
-    }
 });
 
 //bootstrap :)
