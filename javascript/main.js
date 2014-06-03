@@ -1,12 +1,3 @@
-/*!
- * 
- *   melonJS
- *   http://www.melonjs.org
- *		
- *   Step by step game creation tutorial
- *
- **/
-
 // game resources
 var g_resources= [{
     name: "mytileset",
